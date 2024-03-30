@@ -1,0 +1,11 @@
+{
+  "type": "module",
+  "dependencies": 
+  {
+    "fs": "^0.0.1-security",
+    "jira-client": "^8.2.2",
+    "telegraf": "^4.16.3",
+    "telegram-bot-api": "^2.0.1"
+
+  }
+}
