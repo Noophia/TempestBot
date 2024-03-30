@@ -1,9 +1,11 @@
-import { addUser, checkAccess, removeUser, getUsers, report } from './functions/botFunctions.js';
+import { checkAccess, removeUser, report } from './functions/botFunctions.js';
 import { Telegraf } from 'telegraf';
 import { adminPanel} from './functions/adminPanel.js';
 import { auth } from './functions/authorization.js';
+import { tokens } from './credentials.js';
 
-const bot_token = "7160868058:AAGQINgpchG3DwJNRGO3WGg3c5mSUpDeo4M"
+
+const bot_token = tokens.teri_token;
 const bot = new Telegraf(bot_token)
 
 
