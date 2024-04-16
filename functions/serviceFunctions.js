@@ -37,21 +37,20 @@ export function urlencode(text)
     }
     return encodedText;
 }
-
-export function date()
-{
-
-  const currentDate = new Date();
-  const nextDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
-  const previousDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() -1);
-    function formatDate(date) 
+function formatDate(date) 
       {
         let year = date.getFullYear();
         let month = (date.getMonth() + 1).toString().padStart(2, '0');
         let day = date.getDate().toString().padStart(2, '0');
         return `${year}-${month}-${day}`;
       }
-        
+export function date()
+{
+
+  const currentDate = new Date();
+  const nextDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
+  const previousDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() -1);
+
     const fnextDate = formatDate(nextDate)
     const fpreviousDate = formatDate(previousDate)
     const fcurrentDate = formatDate(currentDate)  
@@ -68,4 +67,23 @@ export function createInlineKeyboard(array)
     });
 
     return keyboard;
+}
+
+export function unixToISO(unixTime) {
+  const date = new Date(unixTime * 1000); // Умножаем на 1000, так как в JS время в миллисекундах
+  const isoDate = date.toISOString().split('T')[0]; // Разделяем дату и время и берем только дату
+  return isoDate;
+}
+
+export function newDate(unixDate)
+{
+const currentDate = new Date (unixToISO(unixDate))
+const nextDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
+const previousDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() -1);
+
+  const fnextDate = formatDate(nextDate)
+  const fpreviousDate = formatDate(previousDate)
+  const fcurrentDate = formatDate(currentDate) 
+  
+return {fnextDate, fcurrentDate ,fpreviousDate}; 
 }

@@ -1,9 +1,9 @@
-import { date, urlencode } from "./serviceFunctions.js";
+import { newDate, urlencode } from "./serviceFunctions.js";
 
 
-const {fpreviousDate, fcurrentDate, fnextDate} = date();
+const {fpreviousDate, fcurrentDate, fnextDate} = newDate();
 
-export const jql =
+const jql =
 {
   Total : 'project = TERI AND issuetype = Bug AND status != Closed ORDER BY status DESC',
   Blocked: 'project = TERI AND issuetype = Bug AND status = "Blocked"',
@@ -12,7 +12,7 @@ export const jql =
   Closed : `project = TERI AND issuetype = Bug AND status = Closed AND status changed from "QA Verification" to Closed during (${fcurrentDate},${fcurrentDate}) ORDER BY key ASC`,
   ClosedT: `project = TERI AND issuetype in (Task, Sub-task) AND status changed FROM "QA Verification" to (Closed, Reopened) during (${fcurrentDate},${fcurrentDate})` // Closed tasks for next function
 }
-export const issueReport = 
+ const issueReport = 
   {
       total: `<a href='https://jira.saber3d.net/issues/?jql=${urlencode(jql.Total)}'><u><b>TOTAL OPEN ISSUES</b></u></a>`,
       blocked: `<a href='https://jira.saber3d.net/issues/?jql=${urlencode(jql.Blocked)}'><u><b>BLOCKED</b></u></a>`,
