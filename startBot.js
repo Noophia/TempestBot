@@ -6,7 +6,7 @@ import { tokens } from './credentials.js';
 import { unixToISO } from './functions/serviceFunctions.js';
 
 
-const bot_token = tokens.test_token;
+const bot_token = tokens.teri_token;
 const bot = new Telegraf(bot_token)
 
 
