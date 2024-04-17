@@ -3,7 +3,6 @@ import { Telegraf } from 'telegraf';
 import { adminPanel} from './functions/adminPanel.js';
 import { auth } from './functions/authorization.js';
 import { tokens } from './credentials.js';
-import { unixToISO } from './functions/serviceFunctions.js';
 
 
 const bot_token = tokens.teri_token;
@@ -19,8 +18,8 @@ bot.start(async(ctx)=>
         ctx.reply(`Welcome, ${ctx.chat.first_name}! What shall we do today?`)
     else ctx.reply ('use /authorize command to get access to the bot')
 })
-auth(bot)
-adminPanel(bot)
+auth(bot) // запуск мезанизма авторизации
+adminPanel(bot) // запуск админ панели
 
 bot.command('removeAccess', async (ctx)=>
 {
@@ -35,7 +34,5 @@ bot.command('removeAccess', async (ctx)=>
         else ctx.reply('User with this ID is not found, or you forgot to enter user ID')
     }
 })
-report(bot)
-bot.command('unix', async (ctx)=> {ctx.reply (unixToISO(ctx.message.date))})
-
+report(bot) // запуск функции репорта
 bot.launch()

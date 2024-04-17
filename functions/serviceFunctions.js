@@ -1,5 +1,5 @@
 import fs from 'fs'
-
+//read all user data from DB
 export function readID() {
     try 
     {
@@ -10,11 +10,12 @@ export function readID() {
         return [];
     }
 }
+//re-write all user data in DB with new data
 export function writeID(newData) 
 {
     fs.writeFileSync('././usersDB.json', JSON.stringify(newData))
 }
-
+//encode symbols from the string to url acceptable format
 export function urlencode(text)
 {
     let encodedText = "";
@@ -37,44 +38,7 @@ export function urlencode(text)
     }
     return encodedText;
 }
-function formatDate(date) 
-      {
-        let year = date.getFullYear();
-        let month = (date.getMonth() + 1).toString().padStart(2, '0');
-        let day = date.getDate().toString().padStart(2, '0');
-        return `${year}-${month}-${day}`;
-      }
-export function date()
-{
-
-  const currentDate = new Date();
-  const nextDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
-  const previousDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() -1);
-
-    const fnextDate = formatDate(nextDate)
-    const fpreviousDate = formatDate(previousDate)
-    const fcurrentDate = formatDate(currentDate)  
-  return {fnextDate, fcurrentDate ,fpreviousDate};     
-}
-export function createInlineKeyboard(array) 
-{
-    let keyboard = {
-        inline_keyboard: []
-    };
-
-    array.forEach(item => {
-        keyboard.inline_keyboard.push([{ text: item, callback_data: item }]);
-    });
-
-    return keyboard;
-}
-
-export function unixToISO(unixTime) {
-  const date = new Date(unixTime * 1000); // Умножаем на 1000, так как в JS время в миллисекундах
-  const isoDate = date.toISOString().split('T')[0]; // Разделяем дату и время и берем только дату
-  return isoDate;
-}
-
+//take unix date and create previous, current and next date in certain format
 export function newDate(unixDate)
 {
 const currentDate = new Date (unixToISO(unixDate))
@@ -87,3 +51,31 @@ const previousDate = new Date(currentDate.getFullYear(), currentDate.getMonth(),
   
 return {fnextDate, fcurrentDate ,fpreviousDate}; 
 }
+    //format any date into yyyy-mm-dd format
+    function formatDate(date) 
+      {
+        let year = date.getFullYear();
+        let month = (date.getMonth() + 1).toString().padStart(2, '0');
+        let day = date.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      }
+//create inline keyboard with number of buttons based on input array
+export function createInlineKeyboard(array) 
+{
+    let keyboard = {
+        inline_keyboard: []
+    };
+
+    array.forEach(item => {
+        keyboard.inline_keyboard.push([{ text: item, callback_data: item }]);
+    });
+
+    return keyboard;
+}
+    //take unix date and convert it into iso date format
+    function unixToISO(unixTime) 
+    {
+      const date = new Date(unixTime * 1000); 
+      const isoDate = date.toISOString().split('T')[0]; // taking only date, eliminating time from the string
+      return isoDate;
+    }
